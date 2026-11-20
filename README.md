@@ -299,7 +299,3 @@ try {
 ```
 
 Connection failures throw Laravel's `Illuminate\Http\Client\ConnectionException`.
-
-## License
-
-MIT
