@@ -9,5 +9,5 @@ interface BulkgateNotification
     /**
      * Return a message builder for sending to BulkGate
      */
-    public function toBulkGate(): ?MessageBuilder;
+    public function toBulkGate(object $notifiable): ?MessageBuilder;
 }

@@ -16,7 +16,7 @@ class ApiError extends \Exception implements Arrayable, JsonSerializable
         public readonly ?string $detail,
         ?Throwable $previous = null,
     ) {
-        parent::__construct(message: $error . ($detail ? ": $detail" : ''), code: $code, previous: $previous);
+        parent::__construct(message: $error.($detail ? ": $detail" : ''), code: $code, previous: $previous);
     }
 
     /**

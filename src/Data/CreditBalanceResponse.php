@@ -41,7 +41,7 @@ class CreditBalanceResponse extends ApiResponse
     {
         $data = $response->json('data');
 
-        ///TODO: parse other data
+        // TODO: parse other data
         return new CreditBalanceResponse(
             wallet: $data['wallet'],
             credit: $data['credit'],

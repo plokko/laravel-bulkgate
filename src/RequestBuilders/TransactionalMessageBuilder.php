@@ -194,7 +194,7 @@ class TransactionalMessageBuilder extends MessageBuilder
         try {
             if ($this->simulate_send) {
                 Log::notice('Simulating Bulkgate.transactionalSms:', $request->toArray());
-                //TODO: emulate API response
+                // TODO: emulate API response
                 $response = new TransactionalSmsResponse([]);
             } else {
 

@@ -18,12 +18,12 @@ class LaravelBulkgateServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /// Publish config file ///
+        // Publish config file //
         $this->publishes([
-            __DIR__ . '/../config/config.php' => config_path(self::config_name . '.php'),
-        ], self::config_name . ':config');
+            __DIR__.'/../config/config.php' => config_path(self::config_name.'.php'),
+        ], self::config_name.':config');
 
-        /// Commands ///
+        // Commands //
         if ($this->app->runningInConsole()) {
             $this->commands([
                 GetBalance::class,
@@ -39,17 +39,17 @@ class LaravelBulkgateServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        /// Merge default config ///
+        // / Merge default config ///
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/config.php',
+            __DIR__.'/../config/config.php',
             self::config_name
         );
 
-        /// Facade interface ///
+        // / Facade interface ///
         $this->app->bind(BulkgateInterface::class, fn ($app) => new BulkgateInterface(config: $app->config->get(self::config_name, [])));
 
-        /// Notification channel ///
-        $this->app->singleton(BulkgateSmsChannel::class, fn ($app) => new BulkgateSmsChannel());
+        // / Notification channel ///
+        $this->app->singleton(BulkgateSmsChannel::class, fn ($app) => new BulkgateSmsChannel);
     }
 
     public function provides()
