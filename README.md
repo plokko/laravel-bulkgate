@@ -199,7 +199,7 @@ class AppointmentReminder extends Notification implements BulkgateNotification
      * Return a message builder for sending to BulkGate,
      * or null to skip sending.
      */
-    public function toBulkGate(): ?MessageBuilder
+    public function toBulkGate(object $notifiable): ?MessageBuilder
     {
         $phone = $this->appointment->customer->phone;
         if (! $phone) {
@@ -231,7 +231,18 @@ Send the notification as usual:
 $customer->notify(new AppointmentReminder($appointment));
 ```
 
-> **Tip:** `toBulkGate()` receives no arguments, so pass everything it needs (recipient, data) through the notification constructor.
+If you don't have a notifiable model (e.g. the recipient is passed through the constructor), use an on-demand notification.
+Never pass `null` as the notifiable: Laravel calls `via()` with it and fails with a `TypeError`.
+
+```php
+use Illuminate\Support\Facades\Notification;
+use Plokko\LaravelBulkgate\Channels\BulkgateSmsChannel;
+
+Notification::route(BulkgateSmsChannel::class, $phone)
+    ->notify(new AppointmentReminder($appointment));
+```
+
+> **Tip:** `toBulkGate()` receives the notifiable (an `AnonymousNotifiable` for on-demand notifications), so you can read the recipient from it or pass everything through the notification constructor.
 > If the notification is in `via()` but doesn't implement `BulkgateNotification`, the channel throws an exception.
 
 ### Checking phone numbers

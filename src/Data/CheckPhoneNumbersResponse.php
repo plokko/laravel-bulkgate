@@ -2,6 +2,8 @@
 
 namespace Plokko\LaravelBulkgate\Data;
 
+use ArrayAccess;
+use JsonSerializable;
 use Illuminate\Http\Client\Response;
 use Plokko\LaravelBulkgate\Data\CheckPhoneNumbersResponse\PhoneNumberCheck;
 
@@ -10,7 +12,7 @@ use Plokko\LaravelBulkgate\Data\CheckPhoneNumbersResponse\PhoneNumberCheck;
  *
  * @see https://help.bulkgate.com/docs/en/http-advanced-transactional-v2.html#response-to-this-command-may-be
  */
-class CheckPhoneNumbersResponse extends ApiResponse
+class CheckPhoneNumbersResponse extends ApiResponse implements ArrayAccess
 {
     public function __construct(
         protected readonly array $numbers,
@@ -43,5 +45,25 @@ class CheckPhoneNumbersResponse extends ApiResponse
                 $data
             )
         );
+    }
+
+    public function offsetExists(mixed $offset): bool
+    {
+        return isset($this->numbers[$offset]);
+    }
+
+    public function offsetGet(mixed $offset): mixed
+    {
+        return $this->numbers[$offset];
+    }
+
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        $this->numbers[$offset] = $value;
+    }
+
+    public function offsetUnset(mixed $offset): void
+    {
+        unset($this->numbers[$offset]);
     }
 }

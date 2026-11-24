@@ -29,7 +29,7 @@ class TransactionalSmsResponse extends ApiResponse
     {
         $rawData = $response->json();
 
-        // TODO: parse other data
+        // /TODO: parse other data
         return new TransactionalSmsResponse(
             rawData: $rawData,
         );

@@ -18,12 +18,12 @@ class LaravelBulkgateServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Publish config file //
+        // / Publish config file ///
         $this->publishes([
             __DIR__.'/../config/config.php' => config_path(self::config_name.'.php'),
         ], self::config_name.':config');
 
-        // Commands //
+        // / Commands ///
         if ($this->app->runningInConsole()) {
             $this->commands([
                 GetBalance::class,

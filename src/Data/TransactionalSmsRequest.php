@@ -60,7 +60,7 @@ class TransactionalSmsRequest extends ApiRequest
     public function toArray()
     {
         return array_filter([
-            // ...
+            // /...
             'number' => $this->number,
             'admin' => $this->admin,
             'text' => $this->text,
